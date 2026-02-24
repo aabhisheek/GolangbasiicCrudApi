@@ -21,6 +21,7 @@ func Setup(db *gorm.DB, jwtSecret string) *gin.Engine {
 
 	authHandler := handlers.NewAuthHandler(db, jwtSecret)
 	productHandler := handlers.NewProductHandler(db)
+	spiceHandler := handlers.NewSpiceCategoryHandler(db)
 
 	api := r.Group("/api")
 	{
@@ -38,6 +39,16 @@ func Setup(db *gorm.DB, jwtSecret string) *gin.Engine {
 			products.GET("/:id", productHandler.Get)
 			products.PUT("/:id", productHandler.Update)
 			products.DELETE("/:id", productHandler.Delete)
+		}
+
+		spices := api.Group("/spices")
+		spices.Use(middleware.AuthRequired(jwtSecret))
+		{
+			spices.GET("", spiceHandler.List)
+			spices.POST("", spiceHandler.Create)
+			spices.GET("/:id", spiceHandler.Get)
+			spices.PUT("/:id", spiceHandler.Update)
+			spices.DELETE("/:id", spiceHandler.Delete)
 		}
 	}
 

@@ -3,6 +3,7 @@ import { AuthProvider, useAuth } from './context/AuthContext'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Products from './pages/Products'
+import Spices from './pages/Spices'
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated } = useAuth()
@@ -19,6 +20,14 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <Products />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/spices"
+        element={
+          <ProtectedRoute>
+            <Spices />
           </ProtectedRoute>
         }
       />

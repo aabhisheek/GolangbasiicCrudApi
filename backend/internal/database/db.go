@@ -28,7 +28,7 @@ func Connect(dsn string) *gorm.DB {
 		log.Fatalf("Failed to connect to database: %v", err)
 	}
 
-	if err := db.AutoMigrate(&models.User{}, &models.Product{}); err != nil {
+	if err := db.AutoMigrate(&models.User{}, &models.Product{}, &models.SpiceCategory{}); err != nil {
 		log.Fatalf("Failed to run migrations: %v", err)
 	}
 
